@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.2)
 
-project(ProgLanguageForSimbols VERSION 0.0 ${PATCH_VERSION})
+project(ProgLanguageForSimbols VERSION 0.0.${PATCH_VERSION})
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
