@@ -1,9 +1,17 @@
 #include "tokenDistributor.h"
+#include "QString"
+
+// как это сделать без дефайнов????
+#if defined(Q_OS_WIN32) || defined(Q_OS_WIN64)
+#define QS(x)    (QString::fromLocal8Bit(x))
+#else
+#define QS(x)    (QString::fromUtf8(x))
+#endif
 
 tokenDistributor::tokenDistributor(const string& lexema, size_t line, size_t pos)
 {
     _lexeme = lexema;
-//   _type = which_token_type(lexeme);
+    _type = retunrTokenType(lexema);
 
     _line = line;
     _pos = pos;
@@ -11,41 +19,43 @@ tokenDistributor::tokenDistributor(const string& lexema, size_t line, size_t pos
 
 tokenModel tokenDistributor::retunrTokenType(const string &lexema)
 {
-    if (lexema == "const")
+    if (lexema == QS("постоянно").toStdString())
         return tokenModel::CONST;
 
     // типы данных
-    if (lexema == "int")
+    if (lexema == QS("целый").toStdString())
         return tokenModel::INT;
-    if (lexema == "double")
+    if (lexema == QS("двойной").toStdString())
         return tokenModel::DOUBLE;
-    if (lexema == "bool")
+    if (lexema == QS("буль").toStdString())
         return tokenModel::BOOL;
-    if (lexema == "void")
+    if (lexema == QS("пустота").toStdString())
         return tokenModel::VOID;
-    if (lexema == "char")
+    if (lexema == QS("символ").toStdString())
         return tokenModel::CHAR;
-    if (lexema == "auto")
+    if (lexema == QS("строка").toStdString())
+        return tokenModel::STRING;
+    if (lexema == QS("автоматический").toStdString())
         return tokenModel::AUTO;
 
     // циклы
-    if (lexema == "for")
+    if (lexema == QS("цикл").toStdString())
         return tokenModel::FOR;
-    if (lexema == "while")
+    if (lexema == QS("пока").toStdString())
         return tokenModel::WHILE;
-    if (lexema == "do")
+    if (lexema == QS("делай").toStdString())
         return tokenModel::DO_WHILE;
 
     // операции с циклами
-    if (lexema == "break")
+    if (lexema == QS("прервать").toStdString())
         return tokenModel::BREAK;
-    if (lexema == "continue")
+    if (lexema == QS("продолжить").toStdString())
         return tokenModel::CONTINUE;
 
     // операторы условия
-    if (lexema == "if")
+    if (lexema == QS("если").toStdString())
         return tokenModel::IF;
-    if (lexema == "else")
+    if (lexema == QS("тогда").toStdString())
         return tokenModel::ELSE;
 
     // операторы отношений
@@ -116,32 +126,32 @@ tokenModel tokenDistributor::retunrTokenType(const string &lexema)
 
 
     // функция
-    if (lexema == "return")
+    if (lexema == QS("верни").toStdString())
         return tokenModel::RETURN;
 
-    if (lexema == "procedure")
+    if (lexema == QS("процедура").toStdString())
         return tokenModel::PROCEDURE;
 
 
     // выделение памяти
-    if (lexema == "new")
+    if (lexema == QS("память").toStdString())
         return tokenModel::NEW;
-    if (lexema == "delete")
+    if (lexema == QS("удалить").toStdString())
         return tokenModel::DELETE;
 
 
     // логические операторы
-    if (lexema == "true")
+    if (lexema == QS("истина").toStdString())
         return tokenModel::TRUE;
-    if (lexema == "false")
+    if (lexema == QS("ложь").toStdString())
         return tokenModel::FALSE;
 
 
-    if (lexema == "switch")
+    if (lexema == QS("переключатель").toStdString())
         return tokenModel::SWITCH;
-    if (lexema == "case")
+    if (lexema == QS("выбор").toStdString())
         return tokenModel::CASE;
-    if (lexema == "default")
+    if (lexema == QS("по умолчанию").toStdString())
         return tokenModel::DEFAULT;
 
     // другие символы
@@ -233,103 +243,107 @@ string tokenDistributor::token_type_to_string(tokenModel input_type)
     {
     case tokenModel::IDENTIFIER:
     {
-        return "identifier";
+        return QS("неизвестный").toStdString();
     }
     case tokenModel::INTEGER_CONST:
     {
-        return "integer constant";
+        return QS("целый постоянно").toStdString();
     }
     case tokenModel::DOUBLE_CONST:
     {
-        return "double constant";
+        return QS("двойной постоянно").toStdString();
     }
     case tokenModel::STRING_CONST:
     {
-        return "string constant";
+        return QS("строка постоянно").toStdString();
     }
     case tokenModel::CHAR_CONST:
     {
-        return "char constant";
+        return QS("символ постоянно").toStdString();
     }
     case tokenModel::TRUE:
     {
-        return "true";
+        return QS("истина").toStdString();
     }
     case tokenModel::FALSE:
     {
-        return "false";
+        return QS("ложь").toStdString();
     }
     case tokenModel::CONST:
     {
-        return "const";
+        return QS("постоянно").toStdString();
     }
     case tokenModel::UNDEFINED:
     {
-        return "undefined";
+        return QS("неопределенный").toStdString();
     }
     case tokenModel::INT:
     {
-        return "int";
+        return QS("целый").toStdString();
     }
     case tokenModel::DOUBLE:
     {
-        return "double";
+        return QS("двойной").toStdString();
     }
     case tokenModel::BOOL:
     {
-        return "bool";
+        return QS("буль").toStdString();
     }
     case tokenModel::CHAR:
     {
-        return "char";
+        return QS("симфол").toStdString();
+    }
+    case tokenModel::STRING:
+    {
+        return QS("строка").toStdString();
     }
     case tokenModel::VOID:
     {
-        return "void";
+        return QS("пустота").toStdString();
     }
     case tokenModel::AUTO:
     {
-        return "auto";
+        return QS("автоматический").toStdString();
     }
     case tokenModel::DO_WHILE:
     {
-        return "do while";
+        return QS("делать пока").toStdString();
     }
     case tokenModel::WHILE:
     {
-        return "while";
+        return QS("пока").toStdString();
     }
     case tokenModel::FOR:
     {
-        return "for";
+        return QS("цикл").toStdString();
     }
     case tokenModel::BREAK:
     {
-        return "break";
+        return QS("прервать").toStdString();
     }
     case tokenModel::CONTINUE:
     {
-        return "continue";
+        return QS("продолжить").toStdString();
     }
     case tokenModel::SWITCH:
     {
-        return "switch";
+        return QS("переключатель").toStdString();
     }
     case tokenModel::CASE:
     {
-        return "case";
+        return QS("выбор").toStdString();
     }
     case tokenModel::DEFAULT:
     {
-        return "default";
+        return QS("по умолчанию").toStdString();
     }
     case tokenModel::IF:
     {
-        return "if";
+        return QS("если").toStdString();
     }
     case tokenModel::ELSE:
     {
-        return "else";
+        return QS("тогда").toStdString();
     }
     case tokenModel::LESS:
     {
@@ -439,9 +453,13 @@ string tokenDistributor::token_type_to_string(tokenModel input_type)
     {
         return "function";
     }
+    case tokenModel::PROCEDURE:
+    {
+        return QS("процедура").toStdString();
+    }
     case tokenModel::RETURN:
     {
-        return "return";
+        return QS("верни").toStdString();
     }
     case tokenModel::SEMICOLON:
     {
@@ -481,11 +499,11 @@ string tokenDistributor::token_type_to_string(tokenModel input_type)
     }
     case tokenModel::NEW:
     {
-        return "new";
+        return QS("память").toStdString();
     }
     case tokenModel::DELETE:
     {
-        return "delete";
+        return QS("удалить").toStdString();
     }
     case tokenModel::PREPROCESSOR_DIRECTIVE:
     {
