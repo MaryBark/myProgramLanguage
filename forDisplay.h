@@ -12,11 +12,11 @@
 using namespace std;
 
 
-struct Display
-{
+// struct Display
+// {
 //    QList<string> out;
     stringstream out1;
-};
+// };
 
 
 
