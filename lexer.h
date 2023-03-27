@@ -1,7 +1,7 @@
 #ifndef LEXER_H
 #define LEXER_H
 
-#pragma once
+// #pragma once
 #include <fstream>
 #include <vector>
 #include "tokenDistributor.h"
