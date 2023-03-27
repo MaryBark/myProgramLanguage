@@ -47,18 +47,18 @@ public:
     void print_current_token_line();
 
 
-    inline string filePath() const                 { return _filePath; }
-    inline string code() const                     { return _code;  }
-    inline vector<tokenDistributor> tokens() const { return _tokens; }
-    inline lexer_state state() const               { return _state; }
-    inline size_t currentTokenIndex() const        { return _currentTokenIndex; }
+    string filePath() const                 { return _filePath; }
+    string code() const                     { return _code;  }
+    vector<tokenDistributor> tokens() const { return _tokens; }
+    lexer_state state() const               { return _state; }
+    size_t currentTokenIndex() const        { return _currentTokenIndex; }
 
 
-    inline void setFilePath(const string & filePath)                 { _filePath          = filePath;          }
-    inline void setCode(const string & code)                         { _code              = code;              }
-    inline void setTokens(const vector<tokenDistributor>& tokens)    { _tokens            = tokens;            }
-    inline void setState(const lexer_state& state)                   { _state             = state;             }
-    inline void setCurrentTokenIndex(const size_t&currentTokenIndex) { _currentTokenIndex = currentTokenIndex; }
+    void setFilePath(const string & filePath)                 { _filePath          = filePath;          }
+    void setCode(const string & code)                         { _code              = code;              }
+    void setTokens(const vector<tokenDistributor>& tokens)    { _tokens            = tokens;            }
+    void setState(const lexer_state& state)                   { _state             = state;             }
+    void setCurrentTokenIndex(const size_t&currentTokenIndex) { _currentTokenIndex = currentTokenIndex; }
 
 
 private:
