@@ -1,5 +1,5 @@
 #include "programLanguageView.h"
-#include "./ui_programLanguageView.h"
+
 
 #include "lexer.h"
 #include "parser.h"
